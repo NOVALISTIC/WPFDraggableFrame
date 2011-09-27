@@ -1,0 +1,36 @@
+﻿<Window x:Class="WPFDraggableGlass.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WPF Draggable Aero Glass Demo" Height="320" Width="400" MinHeight="320" MinWidth="400"
+        Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized">
+	
+    <Grid x:Name="windowGrid">
+		
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="6" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		
+		<Grid.RowDefinitions>
+			<RowDefinition Height="32" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="35" />
+		</Grid.RowDefinitions>
+		
+		<!-- Top glass region -->
+		<Label Content="Enter your name:" HorizontalAlignment="Left" VerticalAlignment="Top" />
+		<TextBox x:Name="tbxName" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="101,2,0,0" />
+		
+		<!-- "Client area", defined by the scroll viewer -->
+		<ScrollViewer Grid.Row="1" Grid.ColumnSpan="3" FocusVisualStyle="{x:Null}" Background="White" VerticalContentAlignment="Center" VerticalScrollBarVisibility="Auto">
+			<TextBlock x:Name="txtMessage" FontSize="13" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Padding="4" />
+		</ScrollViewer>
+		
+		<!-- Bottom glass region -->
+		<Button x:Name="btnSayHello" Grid.Row="2" IsDefault="True" Content="Say hello" Height="25" Width="85" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,2" Click="btnSayHello_Click" />
+		<Button x:Name="btnShowIntroMessage" Grid.Row="2" Grid.Column="2" IsCancel="True" Content="Show intro" Height="25" Width="85" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,2" Click="btnShowIntroMessage_Click" />
+		
+	</Grid>
+	
+</Window>
