@@ -46,7 +46,7 @@ namespace WPFDraggableGlass
 		{
 			if (uMsg == WM_NCHITTEST)
 			{
-				if (DefaultWindowProcedure(hWnd, uMsg, wParam, lParam).ToInt32() == HTCLIENT)
+				if (DefWindowProc(hWnd, uMsg, wParam, lParam).ToInt32() == HTCLIENT)
 				{
 					return true;
 				}
@@ -89,7 +89,7 @@ namespace WPFDraggableGlass
 		/// <param name="wParam">Additional message information.</param>
 		/// <param name="lParam">Additional message information.</param>
 		/// <returns>The result of the message processing, which depends on the message.</returns>
-		public static IntPtr DefaultWindowProcedure(IntPtr hWnd, int uMsg, IntPtr wParam, IntPtr lParam)
+		public static IntPtr DefWindowProc(IntPtr hWnd, int uMsg, IntPtr wParam, IntPtr lParam)
 		{
 			return NativeMethods.DefWindowProc(hWnd, uMsg, wParam, lParam);
 		}
