@@ -21,11 +21,15 @@ namespace WPFDraggableGlass
 		/// </summary>
 		public void SayHello()
 		{
-			string name = "world";
+			string name;
 
 			if (!string.IsNullOrWhiteSpace(tbxName.Text))
 			{
 				name = tbxName.Text;
+			}
+			else
+			{
+				name = "world";
 			}
 
 			txtMessage.FontSize = 24;
@@ -54,49 +58,20 @@ namespace WPFDraggableGlass
 			txtMessage.Inlines.Add(new Run("All code in this sample project is distributed under the MIT license, which can be found in license.txt."));
 		}
 
-		#region Aero Glass extensions
-
-		private IntPtr hwnd;
-		private HwndSource hsource;
-
-		private void AdjustGlassFrame()
-		{
-			if (DwmApiInterop.IsCompositionEnabled())
-			{
-				ExtendGlassIntoClientArea(0, 0, 32, 35);
-			}
-			else
-			{
-				FallbackPaint();
-			}
-		}
-
-		private void ExtendGlassIntoClientArea(int left, int right, int top, int bottom)
-		{
-			var margins = new MARGINS { cxLeftWidth = left, cxRightWidth = right, cyTopHeight = top, cyBottomHeight = bottom };
-			int hresult = DwmApiInterop.ExtendFrameIntoClientArea(hwnd, ref margins);
-
-			if (hresult == 0)
-			{
-				hsource.CompositionTarget.BackgroundColor = Colors.Transparent;
-				Background = Brushes.Transparent;
-			}
-			else
-			{
-				throw new InvalidOperationException("Could not extend glass window frames in the main window.");
-			}
-		}
-
-		private void FallbackPaint()
-		{
-			Background = Brushes.White;
-		}
+		#region Draggable glass functionality
 
 		private bool IsOnGlass(int lParam)
 		{
 			int x = lParam << 16 >> 16, y = lParam >> 16;
 			Point point = PointFromScreen(new Point(x, y));
+
+			// In XAML: <Grid x:Name="windowGrid">...</Grid>
 			return VisualTreeHelper.HitTest(windowGrid, point) == null;
+
+			// If you'd like to ignore hits against the grid itself (if it has a background image
+			// or gradient for example, the entire grid area will respond to the hit), use this
+			// return statement instead:
+//			return VisualTreeHelper.HitTest(windowGrid, point).VisualHit == windowGrid;
 		}
 
 		private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -134,13 +109,10 @@ namespace WPFDraggableGlass
 
 		#endregion
 
-		#region Event handlers
+		#region Aero Glass extensions - implementation details not essential to this sample
 
-		private void Window_Loaded(object sender, RoutedEventArgs e)
-		{
-			ShowIntroMessage();
-			tbxName.Focus();
-		}
+		private IntPtr hwnd;
+		private HwndSource hsource;
 
 		private void Window_SourceInitialized(object sender, EventArgs e)
 		{
@@ -160,6 +132,49 @@ namespace WPFDraggableGlass
 			{
 				FallbackPaint();
 			}
+		}
+
+		private void AdjustGlassFrame()
+		{
+			if (DwmApiInterop.IsCompositionEnabled())
+			{
+				ExtendGlassIntoClientArea(0, 0, 32, 35);
+			}
+			else
+			{
+				FallbackPaint();
+			}
+		}
+
+		private void ExtendGlassIntoClientArea(int left, int right, int top, int bottom)
+		{
+			var margins = new MARGINS { cxLeftWidth = left, cxRightWidth = right, cyTopHeight = top, cyBottomHeight = bottom };
+			int hresult = DwmApiInterop.ExtendFrameIntoClientArea(hwnd, ref margins);
+
+			if (hresult == 0)
+			{
+				hsource.CompositionTarget.BackgroundColor = Colors.Transparent;
+				Background = Brushes.Transparent;
+			}
+			else
+			{
+				throw new InvalidOperationException("Could not extend glass window frames in the main window.");
+			}
+		}
+
+		private void FallbackPaint()
+		{
+			Background = Brushes.White;
+		}
+
+		#endregion
+
+		#region Event handlers
+
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			ShowIntroMessage();
+			tbxName.Focus();
 		}
 
 		private void btnSayHello_Click(object sender, RoutedEventArgs e)
