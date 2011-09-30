@@ -85,15 +85,20 @@ namespace WPFDraggableGlass
 		private bool IsOnGlass(int lParam)
 		{
 			int x = lParam << 16 >> 16, y = lParam >> 16;
-			Point point = PointFromScreen(new Point(x, y));
+			var point = PointFromScreen(new Point(x, y));
 
 			// In XAML: <Grid x:Name="windowGrid">...</Grid>
-			return VisualTreeHelper.HitTest(windowGrid, point) == null;
+			var result = VisualTreeHelper.HitTest(windowGrid, point);
 
-			// If you'd like to ignore hits against the grid itself (if it has a background image
-			// or gradient for example, the entire grid area will respond to the hit), use this
-			// return statement instead:
-//			return VisualTreeHelper.HitTest(windowGrid, point).VisualHit == windowGrid;
+			if (result != null)
+			{
+				// A control was hit - it may be the grid if it has a background
+				// texture or gradient over the glass
+				return result.VisualHit == windowGrid;
+			}
+
+			// Nothing was hit - assume that this area is covered by glass anyway
+			return true;
 		}
 
 		private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
