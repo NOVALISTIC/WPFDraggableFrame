@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDraggableGlass", "WPFDraggableGlass\WPFDraggableGlass.csproj", "{9C4B28BF-26A7-4968-816A-17572F188611}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{278FEAC5-C803-4DD1-9D6E-7455C17DA045}"
+	ProjectSection(SolutionItems) = preProject
+		license.txt = license.txt
+		readme.txt = readme.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(MercurialSourceControlSolutionProperties) = preSolution
 		SolutionIsControlled = True
