@@ -1,5 +1,5 @@
 ﻿/* 
- * Copyright (c) 2011 NOVALISTIC
+ * Copyright (c) 2011, 2012 NOVALISTIC
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace WPFDraggableGlass
+namespace WPFDraggableFrame
 {
 	#region Structures
 
@@ -93,10 +93,10 @@ namespace WPFDraggableGlass
 		}
 
 		/// <summary>
-		/// Extends the glass frame into the client area.
+		/// Extends the window frame into the client area.
 		/// </summary>
-		/// <param name="hWnd">The window handle whose client area to extend glass into.</param>
-		/// <param name="margins">The amount of glass to extend around the client area.</param>
+		/// <param name="hWnd">The window handle whose client area to extend the window frame into.</param>
+		/// <param name="margins">The amount of window frame to extend around the client area.</param>
 		/// <returns>S_OK on success; otherwise, an HRESULT error code.</returns>
 		public static int ExtendFrameIntoClientArea(IntPtr hWnd, ref MARGINS margins)
 		{

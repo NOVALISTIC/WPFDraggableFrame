@@ -1,5 +1,5 @@
 ﻿/* 
- * Copyright (c) 2011 NOVALISTIC
+ * Copyright (c) 2011, 2012 NOVALISTIC
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ using System.Windows.Documents;
 using System.Windows.Interop;
 using System.Windows.Media;
 
-namespace WPFDraggableGlass
+namespace WPFDraggableFrame
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
@@ -68,7 +68,7 @@ namespace WPFDraggableGlass
 			txtMessage.FontWeight = FontWeights.Normal;
 			txtMessage.Text = "";
 
-			txtMessage.Inlines.Add(new Run("Drag anywhere on the glass to move this window. Like with the title bar, you can double-click the glass to maximize or restore the window. On Windows 7, you can even perform Aero Snap or Aero Shake gestures. You can also interact with the controls as per normal."));
+			txtMessage.Inlines.Add(new Run("Drag anywhere on the window frame to move this window. Like with the title bar, you can double-click the frame to maximize or restore the window. And on Windows 7 and newer, you can even perform Aero Snap or Aero Shake gestures. Of course, you can still interact with any of the controls as per normal."));
 			txtMessage.Inlines.Add(new LineBreak());
 			txtMessage.Inlines.Add(new LineBreak());
 			txtMessage.Inlines.Add(new Run("This text block is in a scroll viewer with a white background. The scroll viewer, as one of the top-level controls (after the window grid), serves as the \"client area\" for the window, preventing it from being dragged when the cursor is on it."));
@@ -80,9 +80,9 @@ namespace WPFDraggableGlass
 			txtMessage.Inlines.Add(new Run("All code in this sample project is distributed under the MIT license, which can be found in license.txt."));
 		}
 
-		#region Draggable glass functionality
+		#region Draggable frame functionality
 
-		private bool IsOnGlass(int lParam)
+		private bool IsOnExtendedFrame(int lParam)
 		{
 			int x = lParam << 16 >> 16, y = lParam >> 16;
 			var point = PointFromScreen(new Point(x, y));
@@ -93,11 +93,11 @@ namespace WPFDraggableGlass
 			if (result != null)
 			{
 				// A control was hit - it may be the grid if it has a background
-				// texture or gradient over the glass
+				// texture or gradient over the extended window frame
 				return result.VisualHit == windowGrid;
 			}
 
-			// Nothing was hit - assume that this area is covered by glass anyway
+			// Nothing was hit - assume that this area is covered by frame extensions anyway
 			return true;
 		}
 
@@ -109,7 +109,7 @@ namespace WPFDraggableGlass
 				case DwmApiInterop.WM_NCHITTEST:
 					if (DwmApiInterop.IsCompositionEnabled()
 						&& DwmApiInterop.IsOnClientArea(hwnd, msg, wParam, lParam)
-						&& IsOnGlass(lParam.ToInt32()))
+						&& IsOnExtendedFrame(lParam.ToInt32()))
 					{
 						handled = true;
 						return new IntPtr(DwmApiInterop.HTCAPTION);
@@ -117,11 +117,11 @@ namespace WPFDraggableGlass
 
 					return IntPtr.Zero;
 
-				// Also toggle glass painting on this window when desktop composition is toggled
+				// Also toggle window frame painting on this window when desktop composition is toggled
 				case DwmApiInterop.WM_DWMCOMPOSITIONCHANGED:
 					try
 					{
-						AdjustGlassFrame();
+						AdjustWindowFrame();
 					}
 					catch (InvalidOperationException)
 					{
@@ -136,7 +136,7 @@ namespace WPFDraggableGlass
 
 		#endregion
 
-		#region Aero Glass extensions - implementation details not essential to this sample
+		#region Window frame extensions - implementation details not essential to this sample
 
 		private IntPtr hwnd;
 		private HwndSource hsource;
@@ -153,7 +153,7 @@ namespace WPFDraggableGlass
 				hsource = HwndSource.FromHwnd(hwnd);
 				hsource.AddHook(WndProc);
 
-				AdjustGlassFrame();
+				AdjustWindowFrame();
 			}
 			catch (InvalidOperationException)
 			{
@@ -161,11 +161,11 @@ namespace WPFDraggableGlass
 			}
 		}
 
-		private void AdjustGlassFrame()
+		private void AdjustWindowFrame()
 		{
 			if (DwmApiInterop.IsCompositionEnabled())
 			{
-				ExtendGlassIntoClientArea(0, 0, 32, 35);
+				ExtendFrameIntoClientArea(0, 0, 32, 35);
 			}
 			else
 			{
@@ -173,7 +173,7 @@ namespace WPFDraggableGlass
 			}
 		}
 
-		private void ExtendGlassIntoClientArea(int left, int right, int top, int bottom)
+		private void ExtendFrameIntoClientArea(int left, int right, int top, int bottom)
 		{
 			var margins = new MARGINS { cxLeftWidth = left, cxRightWidth = right, cyTopHeight = top, cyBottomHeight = bottom };
 			int hresult = DwmApiInterop.ExtendFrameIntoClientArea(hwnd, ref margins);
@@ -185,7 +185,7 @@ namespace WPFDraggableGlass
 			}
 			else
 			{
-				throw new InvalidOperationException("Could not extend glass window frames in the main window.");
+				throw new InvalidOperationException("Could not extend window frames in the main window.");
 			}
 		}
 
@@ -196,7 +196,7 @@ namespace WPFDraggableGlass
 
 		#endregion
 
-		#region Event handlers
+		#region Misc window event handlers
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{

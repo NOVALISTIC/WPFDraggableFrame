@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WPFDraggableGlass")]
-[assembly: AssemblyDescription("A sample WPF application, written in C#, demonstrating window dragging behavior on glass regions of a window with Aero Glass extensions.")]
+[assembly: AssemblyTitle("WPFDraggableFrame")]
+[assembly: AssemblyDescription("A sample WPF application, written in C#, demonstrating window dragging behavior on extended non-client window frame regions of a window.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NOVALISTIC")]
-[assembly: AssemblyProduct("WPFDraggableGlass")]
-[assembly: AssemblyCopyright("Copyright © 2011 NOVALISTIC")]
+[assembly: AssemblyProduct("WPFDraggableFrame")]
+[assembly: AssemblyCopyright("Copyright © 2012 NOVALISTIC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
