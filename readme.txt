@@ -4,8 +4,8 @@ http://wpfdraggableframe.codeplex.com
 Project Description
 -------------------
 A sample WPF application, written in C#, demonstrating window dragging behavior on
-extended non-client window frame regions of a window, similar to apps such as File
-Explorer, Internet Explorer and Windows App Certification Kit.
+extended non-client window frame regions of a window, similarly to desktop apps such
+as Internet Explorer.
 
 The code in this project is a companion to the following Q&A on Stack Overflow:
 http://stackoverflow.com/questions/5493149/how-do-i-make-a-wpf-window-movable-by-dragging-the-extended-window-frame
