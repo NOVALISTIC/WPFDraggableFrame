@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NOVALISTIC")]
 [assembly: AssemblyProduct("WPFDraggableFrame")]
-[assembly: AssemblyCopyright("Copyright © 2012 NOVALISTIC")]
+[assembly: AssemblyCopyright("Copyright © 2011, 2012 NOVALISTIC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
