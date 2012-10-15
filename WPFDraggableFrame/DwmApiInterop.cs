@@ -42,7 +42,7 @@ namespace WPFDraggableFrame
 
 	#endregion
 
-	public class DwmApiInterop
+	public static class DwmApiInterop
 	{
 		#region Constants
 
