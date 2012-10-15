@@ -33,10 +33,16 @@ namespace WPFDraggableFrame
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		#region Constructor
+
 		public MainWindow()
 		{
 			InitializeComponent();
 		}
+
+		#endregion
+
+		#region Main application functionality
 
 		/// <summary>
 		/// Replaces the introductory message in the "client area" with a greeting.
@@ -79,6 +85,8 @@ namespace WPFDraggableFrame
 			txtMessage.Inlines.Add(new LineBreak());
 			txtMessage.Inlines.Add(new Run("All code in this sample project is distributed under the MIT license, which can be found in license.txt."));
 		}
+
+		#endregion
 
 		#region Draggable frame functionality
 
