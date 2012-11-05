@@ -42,52 +42,6 @@ namespace WPFDraggableFrame
 
 		#endregion
 
-		#region Main application functionality
-
-		/// <summary>
-		/// Replaces the introductory message in the "client area" with a greeting.
-		/// </summary>
-		public void SayHello()
-		{
-			string name;
-
-			if (!string.IsNullOrWhiteSpace(tbxName.Text))
-			{
-				name = tbxName.Text;
-			}
-			else
-			{
-				name = "world";
-			}
-
-			txtMessage.FontSize = 24;
-			txtMessage.FontWeight = FontWeights.DemiBold;
-			txtMessage.Text = string.Format("Hello, {0}!", name);
-		}
-
-		/// <summary>
-		/// Displays the introductory message in the "client area".
-		/// </summary>
-		public void ShowIntroMessage()
-		{
-			txtMessage.FontSize = 13;
-			txtMessage.FontWeight = FontWeights.Normal;
-			txtMessage.Text = "";
-
-			txtMessage.Inlines.Add(new Run("Drag anywhere on the window frame to move this window. Like with the title bar, you can double-click the frame to maximize or restore the window. And on Windows 7 and newer, you can even perform Aero Snap or Aero Shake gestures. Of course, you can still interact with any of the controls as per normal."));
-			txtMessage.Inlines.Add(new LineBreak());
-			txtMessage.Inlines.Add(new LineBreak());
-			txtMessage.Inlines.Add(new Run("This text block is in a scroll viewer with a white background. The scroll viewer, as one of the top-level controls (after the window grid), serves as the \"client area\" for the window, preventing it from being dragged when the cursor is on it."));
-			txtMessage.Inlines.Add(new LineBreak());
-			txtMessage.Inlines.Add(new LineBreak());
-			txtMessage.Inlines.Add(new Run("Other top-level controls include the label and the text box at the top, and the command buttons at the bottom. These respond to user interaction as normal, instead of causing the window to be dragged."));
-			txtMessage.Inlines.Add(new LineBreak());
-			txtMessage.Inlines.Add(new LineBreak());
-			txtMessage.Inlines.Add(new Run("All code in this sample project is distributed under the MIT license, which can be found in license.txt."));
-		}
-
-		#endregion
-
 		#region Draggable frame functionality
 
 		private bool IsOnExtendedFrame(int lParam)
@@ -204,7 +158,53 @@ namespace WPFDraggableFrame
 
 		#endregion
 
-		#region Misc window event handlers
+		#region Window functionality
+
+		/// <summary>
+		/// Replaces the introductory message in the "client area" with a greeting.
+		/// </summary>
+		private void SayHello()
+		{
+			string name;
+
+			if (!string.IsNullOrWhiteSpace(tbxName.Text))
+			{
+				name = tbxName.Text;
+			}
+			else
+			{
+				name = "world";
+			}
+
+			txtMessage.FontSize = 24;
+			txtMessage.FontWeight = FontWeights.DemiBold;
+			txtMessage.Text = string.Format("Hello, {0}!", name);
+		}
+
+		/// <summary>
+		/// Displays the introductory message in the "client area".
+		/// </summary>
+		private void ShowIntroMessage()
+		{
+			txtMessage.FontSize = 13;
+			txtMessage.FontWeight = FontWeights.Normal;
+			txtMessage.Text = "";
+
+			txtMessage.Inlines.Add(new Run("Drag anywhere on the window frame to move this window. Like with the title bar, you can double-click the frame to maximize or restore the window. And on Windows 7 and newer, you can even perform Aero Snap or Aero Shake gestures. Of course, you can still interact with any of the controls as per normal."));
+			txtMessage.Inlines.Add(new LineBreak());
+			txtMessage.Inlines.Add(new LineBreak());
+			txtMessage.Inlines.Add(new Run("This text block is in a scroll viewer with a white background. The scroll viewer, as one of the top-level controls (after the window grid), serves as the \"client area\" for the window, preventing it from being dragged when the cursor is on it."));
+			txtMessage.Inlines.Add(new LineBreak());
+			txtMessage.Inlines.Add(new LineBreak());
+			txtMessage.Inlines.Add(new Run("Other top-level controls include the label and the text box at the top, and the command buttons at the bottom. These respond to user interaction as normal, instead of causing the window to be dragged."));
+			txtMessage.Inlines.Add(new LineBreak());
+			txtMessage.Inlines.Add(new LineBreak());
+			txtMessage.Inlines.Add(new Run("All code in this sample project is distributed under the MIT license, which can be found in license.txt."));
+		}
+
+		#endregion
+
+		#region Event handlers
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
