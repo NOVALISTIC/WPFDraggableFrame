@@ -34,9 +34,9 @@ namespace WPFDraggableFrame
 	[StructLayout(LayoutKind.Sequential)]
 	public struct MARGINS
 	{
-		public int cxLeftWidth, 
-			cxRightWidth, 
-			cyTopHeight, 
+		public int cxLeftWidth,
+			cxRightWidth,
+			cyTopHeight,
 			cyBottomHeight;
 	}
 
