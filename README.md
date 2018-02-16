@@ -1,4 +1,4 @@
-# WPFDraggableFrame
+# WPF Draggable Extended Window Frame Demo
 
 A sample WPF application, written in C#, demonstrating window dragging behavior
 on extended non-client window frame regions of a window in a manner similar to
